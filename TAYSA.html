@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> Homepage </title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #3deaf3;
+            background-repeat: no-repeat;
+            background-position: center;
+            padding: 0;
+            height: auto; /* Changed to auto to adapt to content */
+            background-size: cover;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column; /* Changed to column for full height */
+            width: 100%;
+            height: auto; /* Allow dynamic height */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(BACKGROUNDS/BACKGROUND1.jpg);
+            background-size: cover;
+            background-position: center;
+            flex-grow: 1; /* Allow container to grow */
+        }
+
+        .menu {
+            width: 100%;
+            height: auto; /* Allow dynamic height */
+            display: flex;
+            align-items: center; /* Center items vertically */
+            justify-content: space-between; /* Keep items spaced out */
+            padding: 0.5% 4%;  /* Reduced padding */
+            color: #fff;
+            background: linear-gradient(135deg, rgba(99, 223, 240, 0.797), rgba(38, 179, 234, 0.674));
+        }
+
+        .logo {
+            width: 10%; /* Set to a percentage for responsiveness */
+            min-width: 80px; /* Set a minimum width to prevent shrinking too small */
+            max-width: 100px; /* Ensure it doesn't get too large */
+            height: auto; /* Maintain aspect ratio */
+            cursor: pointer;
+        }
+
+        .menu ul {
+            display: flex; /* Default to horizontal layout */
+            gap: 1vw; /* Space between items */
+            list-style: none; /* Remove bullet points */
+        }
+
+        .menu ul li {
+            position: relative;
+            display: inline-block;
+        }
+
+        .menu ul li a {
+            text-decoration: none;
+            color: #fff;
+            text-transform: uppercase;
+            padding: 10px 20px; 
+            font-size: 16px;
+            border-radius: 25px; 
+            border: 2px solid transparent; 
+            background: rgba(255, 255, 255, 0.1); 
+            transition: background 0.3s ease, border 0.3s ease; 
+            display: inline-block; 
+        }
+
+        .menu ul li a:hover {
+            background: #3deaf3;
+            border: 2px solid #fff;
+        }
+
+        .main {
+            flex: 1; 
+            display: flex; /* Changed to flex for better centering */
+            flex-direction: column; 
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+        }
+
+        .main h1 {
+            font-size: 6vw; 
+            margin: 0;
+        }
+
+        .main p {
+            margin: 2vh auto;
+            font-weight: 100;
+            line-height: 1.5;
+            font-size: 1.5em;
+        }
+
+        .footer {
+            width: 100%;
+            background: linear-gradient(135deg, rgba(99, 223, 240, 0.797), rgba(38, 179, 234, 0.674));
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+            font-size: 1em;
+        }
+
+        .footer p {
+            color: #fff;
+        }
+
+        @media (max-width: 600px) {
+            .menu ul {
+                flex-direction: column; /* Stack menu items vertically on small screens */
+                align-items: center; /* Center items */
+                width: 100%; /* Make the ul take full width */
+                padding: 0; /* Remove any padding */
+            }
+
+            .menu {
+                justify-content: center; /* Center the menu when stacked */
+                padding: 10px 0; /* Adjusted padding for mobile */
+            }
+
+            .main h1 {
+                font-size: 6vw; /* Adjusted font size for smaller screens */
+            }
+
+            .album .pic {
+                width: 150px; /* Adjust picture size on small screens */
+                height: 150px;
+            }
+
+            .menu ul {
+                gap: 5px; /* Smaller gap for mobile view */
+            }
+
+            .album-container {
+                width: 150px; /* Adjust picture size on small screens */
+                height: 150px;
+            }
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* Left Content */
+        .main-content {
+            color: white;
+            flex: 2;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 25px rgb(255, 255, 255);
+            background: linear-gradient(135deg, rgba(99, 223, 240, 0.797), rgba(255, 255, 255, 0.674));
+        }
+
+        .main-content h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .main-content p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .sidebar-section {
+            color: white;
+            box-shadow: 0 2px 25px rgb(255, 255, 255);
+            background: linear-gradient(135deg, rgba(99, 223, 240, 0.797), rgba(255, 255, 255, 0.674));
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .sidebar-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .album-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 2rem auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 2px 25px rgb(255, 255, 255);
+            height: 400px; /* Adjusted height for portrait images */
+        }
+
+        .album {
+            display: flex;
+            transition: transform 0.4s ease;
+            width: calc(200px * 5); /* Width of each image * number of images */
+            margin-top: 25px;
+            margin-right: 500px;
+            gap: 10px;
+        }
+
+        .pic {
+            flex: none;
+            width: 200px;
+            height: 190px;
+            margin-right: 10px;
+            overflow: hidden;
+            border: 1px solid white;
+            box-shadow: 0 2px 25px rgb(255, 255, 255);
+            transition: transform 0.3s ease; /* Smooth transition */
+            height: 350px; /* Adjusted height for portrait images */
+        }
+
+        .pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Hover Effect */
+        .pic:hover {
+            transform: scale(1.20); /* Scale the image slightly */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add a shadow */
+        }
+
+        .album .pic:first-child {
+            margin-left: 20px; /* This will add a left gap to the first image */
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 10;
+        }
+
+        .prev-btn {
+            left: 10px;
+        }
+
+        .next-btn {
+            right: 10px;
+        }
+
+        /* Dots */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: -20px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            margin: 5px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="menu">
+            <img src="LOGOS/LOGO1.png" srcset="LOGOS/LOGO1-small.png 300w, LOGOS/LOGO1.png 600w" alt="Logo" class="logo">
+            <ul>
+                <li><a href="Homepage.html"> Home </a></li>
+                <li><a href="Portfolio.html"> Portfolio </a></li>
+                <li><a href="Favorites.html"> Favorites </a></li> 
+            </ul>
+        </div>
+        <br>
+        <div class="main">
+            <h1> Cha-Cha's Album </h1>
+            <p> Welcome to my album, showcasing a collection of my shots and pictures as a handsome photo journalist. </p>
+        </div>
+
+            <!-- Carousel Album Section -->
+    <div class="album-container">
+        <button class="carousel-btn prev-btn" onclick="moveCarousel(-1)">&#10094;</button>
+        <div class="album" id="albumTrack">
+            <div class="pic"><img src="IMAGES/IMG1.jpg" srcset="IMAGES/IMG1.jpg 300w, IMAGES/IMG1.jpg 600w" alt="Picture 1"></div>
+            <div class="pic"><img src="IMAGES/IMG2.jpg" srcset="IMAGES/IMG2.jpg 300w, IMAGES/IMG2.jpg 600w" alt="Picture 2"></div>
+            <div class="pic"><img src="IMAGES/IMG3.jpeg" srcset="IMAGES/IMG3.jpeg 300w, IMAGES/IMG3.jpeg 600w" alt="Picture 3"></div>
+            <div class="pic"><img src="IMAGES/IMG4.jpeg" srcset="IMAGES/IMG4.jpeg 300w, IMAGES/IMG4.jpeg 600w" alt="Picture 4"></div>
+            <div class="pic"><img src="IMAGES/IMG5.jpeg" srcset="IMAGES/IMG5.jpeg 300w, IMAGES/IMG5.jpeg 600w" alt="Picture 5"></div>
+            <div class="pic"><img src="IMAGES/IMG6.jpeg" srcset="IMAGES/IMG6.jpeg 300w, IMAGES/IMG6.jpeg 600w" alt="Picture 6"></div>
+            <div class="pic"><img src="IMAGES/IMG7.jpeg" srcset="IMAGES/IMG7.jpeg 300w, IMAGES/IMG7.jpeg 600w" alt="Picture 7"></div>
+            <div class="pic"><img src="IMAGES/IMG8.jpeg" srcset="IMAGES/IMG8.jpeg 300w, IMAGES/IMG8.jpeg 600w" alt="Picture 8"></div>
+            <div class="pic"><img src="IMAGES/IMG9.jpeg" srcset="IMAGES/IMG9.jpeg 300w, IMAGES/IMG9.jpeg 600w" alt="Picture 9"></div>
+            <div class="pic"><img src="IMAGES/IMG10.jpeg" srcset="IMAGES/IMG10.jpeg 300w, IMAGES/IMG10.jpeg 600w" alt="Picture 10"></div>
+            <div class="pic"><img src="IMAGES/IMG11.jpeg" srcset="IMAGES/IMG11.jpeg 300w, IMAGES/IMG11.jpeg 600w" alt="Picture 11"></div>
+            <div class="pic"><img src="IMAGES/IMG12.jpeg" srcset="IMAGES/IMG12.jpeg 300w, IMAGES/IMG12.jpeg 600w" alt="Picture 12"></div>
+            <div class="pic"><img src="IMAGES/IMG13.jpeg" srcset="IMAGES/IMG13.jpeg 300w, IMAGES/IMG13.jpeg 600w" alt="Picture 13"></div>
+            <!--Use srcset for the logo and images in the album to load different sizes based on screen width, optimizing for mobile devices:-->
+        </div>
+        <button class="carousel-btn next-btn" onclick="moveCarousel(1)">&#10095;</button>
+    </div>
+
+        <!-- Dots/Indicators -->
+        <div class="carousel-dots" id="carouselDots"></div>
+
+        <div class="main-container">
+            <div class="main-content">
+                <h1>About Me</h1>
+                <p>Hi, I'm Charles Kevin F. Meguizo, a passionate photojournalist. Through my lens, I capture the beauty of everyday moments and tell stories that resonate with people.</p>
+                <p>My journey began with a fascination for photography, and it has since blossomed into a lifelong pursuit of artistry and connection.</p>
+                <p>I believe that every picture tells a story, and I strive to convey emotion and authenticity in my work.</p>
+            </div>
+    
+            <div class="sidebar">
+                <div class="sidebar-section">
+                    <h2>Latest Updates</h2>
+                    <p>Here are some of my shots during CTU - AC's Intramurals A.Y 2023 - 2024.</p>
+                </div>
+                <div class="sidebar-section">
+                    <h2>Social Media</h2>
+                    <p>Follow me on social media to keep up with my latest work and insights.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const images = document.querySelectorAll('.pic');
+        const totalImages = images.length;
+        const album = document.getElementById('albumTrack');
+        const dotsContainer = document.getElementById('carouselDots');
+
+        // Create dots dynamically based on number of images
+        for (let i = 0; i < totalImages; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            dot.addEventListener('click', () => moveCarouselTo(i));
+            dotsContainer.appendChild(dot);
+        }
+
+        const dots = document.querySelectorAll('.dot');
+
+        function updateCarousel() {
+            album.style.transform = `translateX(-${currentIndex * 200}px)`; // Adjust for image width
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[currentIndex].classList.add('active');
+        }
+
+        function moveCarousel(direction) {
+            if (direction === 1) {
+                currentIndex++;
+                if (currentIndex >= totalImages) {
+                    currentIndex = 0; // If at the end, go to the first image
+                }
+            } else if (direction === -1) {
+                currentIndex--;
+                if (currentIndex < 0) {
+                    currentIndex = totalImages - 1; // If at the start, go to the last image
+                }
+            }
+            updateCarousel();
+        }
+
+        function moveCarouselTo(index) {
+            currentIndex = index;
+            updateCarousel();
+        }
+
+        // Initialize carousel
+        updateCarousel();
+
+        // Auto-slide function
+        function autoSlide() {
+            moveCarousel(1);
+        }
+
+        // Set auto-slide
+        let autoSlideInterval = setInterval(autoSlide, 2000);
+
+        // Pause auto-slide on hover
+        document.querySelector('.album-container').addEventListener('mouseenter', () => {
+            clearInterval(autoSlideInterval);
+        });
+
+        // Resume auto-slide when mouse leaves
+        document.querySelector('.album-container').addEventListener('mouseleave', () => {
+            autoSlideInterval = setInterval(autoSlide, 4000);
+        });
+    </script>
+
+    <footer class="footer">
+        <p> © 2025 Charles Kevin F. Meguizo. All rights reserved. </p>
+    </footer>
+</body>
+</html>
